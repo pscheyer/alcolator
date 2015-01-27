@@ -51,8 +51,8 @@
     // Calls the superclass's implementation
     [super viewDidLoad];
     
-    // Set our primary view's background color to lightGrayColor
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    // Set our primary view's background color to whiteColor
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // Tells the text field that `self`, this instance of `BLCViewController` should be treated as the text field's delegate
     self.beerPercentTextField.delegate = self;
@@ -83,11 +83,47 @@
 
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
+
     
-    CGFloat viewWidth = 320;
+    
+    CGFloat viewWidth;
+    CGFloat itemWidth;
+    CGFloat itemHeight;
     CGFloat padding = 20;
-    CGFloat itemWidth = viewWidth - padding - padding;
-    CGFloat itemHeight = 44;
+    
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        NSLog(@"This UI Setup is for Ipad");
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        NSLog(@"Orientation is %d", orientation);
+        if (orientation == 1) {
+            viewWidth = 768;
+            itemWidth = viewWidth - padding - padding;
+            itemHeight = 44;
+            NSLog(@"Orientation is portrait");
+        } else  {
+            viewWidth = 1024;
+            itemWidth = viewWidth - padding - padding;
+            itemHeight = 22;
+            NSLog(@"Orientation not portrait");
+        }
+        
+    } else {
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    NSLog(@"Orientation is %d", orientation);
+        NSLog(@"This UI Setup is for IPhone");
+    if (orientation == 1) {
+        viewWidth = 320;
+        itemWidth = viewWidth - padding - padding;
+        itemHeight = 44;
+        NSLog(@"Orientation is portrait");
+    } else  {
+        viewWidth = 480;
+        itemWidth = viewWidth - padding - padding;
+        itemHeight = 22;
+        NSLog(@"Orientation not portrait");
+    }
+    }
+
     
     self.beerPercentTextField.frame = CGRectMake(padding, padding, itemWidth, itemHeight);
     
