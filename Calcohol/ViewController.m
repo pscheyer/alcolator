@@ -40,15 +40,11 @@
     }
 }
 
-
-
-
-
 - (IBAction)sliderValueDidChange:(UISlider *)sender {
     
     NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
-    NSString *sliderText = [NSString stringWithFormat:NSLocalizedString(@"%@", nil), sender.value];
+    NSString *sliderText = [NSString stringWithFormat:NSLocalizedString(@"%.1f ", nil), sender.value];
     self.beerSliderLabel.text = sliderText;
 }
 
@@ -91,7 +87,7 @@
     }
     
 //    generate the result text, and display it on the label
-    NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ contains as much alcohol as %.1f %@ of wine.", nil), numberOfBeers, beerText, numberOfWineGlassesForEquivalentAlcoholAmount, wineText];
+    NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ contain as much alcohol as %.1f %@ of wine.", nil), numberOfBeers, beerText,numberOfWineGlassesForEquivalentAlcoholAmount, wineText];
     self.resultLabel.text = resultText;
     NSLog(@"%@", resultText);
     
