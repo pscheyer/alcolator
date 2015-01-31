@@ -5,6 +5,7 @@
 //  Created by Peter Scheyer on 1/25/15.
 //  Copyright (c) 2015 Peter Scheyer. All rights reserved.
 //
+#import "MainMenuViewController.h"
 #import "ViewController.h"
 #import "AppDelegate.h"
 
@@ -19,8 +20,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] ;
     // Override point for customization after application launch.
-    ViewController *viewController = [[ViewController alloc] init];
-    self.window.rootViewController = viewController;
+    MainMenuViewController *mainMenuViewController = [[MainMenuViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainMenuViewController];
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }

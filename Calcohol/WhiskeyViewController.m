@@ -14,6 +14,16 @@
 
 @implementation WhiskeyViewController
 
+- (void)sliderValueDidChange:(UISlider *)sender {
+    
+    NSLog(@"Slider value changed to %f", sender.value);
+    [self.beerPercentTextField resignFirstResponder];
+    NSString *sliderText = [NSString stringWithFormat:NSLocalizedString(@"%.1f ", nil), sender.value];
+    NSString *titleText = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%.1f shots)", nil), sender.value];
+    self.beerSliderLabel.text = sliderText;
+    self.title = titleText;
+}
+
 - (void)buttonPressed:(UIButton *)sender;
 {
     [self.beerPercentTextField resignFirstResponder];
@@ -49,5 +59,10 @@
     
     NSString *resultText = [NSString stringWithFormat:NSLocalizedString(@"%d %@ contains as much alcohol as %.1f %@ of whiskey.", nil), numberOfBeers, beerText, numberOfWhiskeyGlassesForEquivalentAlcoholAmount, whiskeyText];
     self.resultLabel.text = resultText;
+}
+
+-(void) viewDidLoad {
+    [super viewDidLoad];
+    self.title  = NSLocalizedString(@"Whiskey", @"whiskey");
 }
 @end

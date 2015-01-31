@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 
+
 @interface ViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) UIButton *calculateButton;
@@ -26,13 +27,16 @@
     UITextField *textField = [[UITextField alloc] init];
     UISlider *slider = [[UISlider alloc] init];
     UILabel *label = [[UILabel alloc] init];
+    UILabel *beerSliderLabel = [[UILabel alloc] init];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+
     
     // Add each view and the gesture recognizer as the view's subviews
     [self.view addSubview:textField];
     [self.view addSubview:slider];
     [self.view addSubview:label];
+    [self.view addSubview:beerSliderLabel];
     [self.view addSubview:button];
     [self.view addGestureRecognizer:tap];
     
@@ -40,6 +44,7 @@
     self.beerPercentTextField = textField;
     self.beerCountSlider = slider;
     self.resultLabel = label;
+    self.beerSliderLabel = beerSliderLabel;
     self.calculateButton = button;
     self.hideKeyboardTapGestureRecognizer = tap;
     
@@ -80,6 +85,8 @@
     
     // Gets rid of the maximum number of lines on the label
     self.resultLabel.numberOfLines = 0;
+    
+    self.title = NSLocalizedString(@"Wine", @"wine");
 }
 
 - (void) viewWillLayoutSubviews {
@@ -91,6 +98,7 @@
     CGFloat itemWidth;
     CGFloat itemHeight;
     CGFloat padding = 20;
+    CGFloat navBar = 44;
     
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
         NSLog(@"This UI Setup is for Ipad");
@@ -126,13 +134,16 @@
     }
 
     
-    self.beerPercentTextField.frame = CGRectMake(padding, padding, itemWidth, itemHeight);
+    self.beerPercentTextField.frame = CGRectMake(padding, padding + navBar, itemWidth, itemHeight);
     
     CGFloat bottomOfTextField = CGRectGetMaxY(self.beerPercentTextField.frame);
     self.beerCountSlider.frame = CGRectMake(padding, bottomOfTextField + padding, itemWidth, itemHeight);
     
     CGFloat bottomOfSlider = CGRectGetMaxY(self.beerCountSlider.frame);
-    self.resultLabel.frame = CGRectMake(padding, bottomOfSlider + padding, itemWidth, itemHeight * 4);
+    self.beerSliderLabel.frame = CGRectMake(padding, bottomOfSlider+padding, itemWidth, itemHeight);
+    
+    CGFloat bottomOfSliderLabel = CGRectGetMaxY(self.beerSliderLabel.frame);
+    self.resultLabel.frame = CGRectMake(padding, bottomOfSliderLabel + padding, itemWidth, itemHeight * 4);
     
     CGFloat bottomOfLabel = CGRectGetMaxY(self.resultLabel.frame);
     self.calculateButton.frame = CGRectMake(padding, bottomOfLabel + padding, itemWidth, itemHeight);
@@ -158,7 +169,9 @@
     NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
     NSString *sliderText = [NSString stringWithFormat:NSLocalizedString(@"%.1f ", nil), sender.value];
+    NSString *titleText = [NSString stringWithFormat:NSLocalizedString(@"Wine (%.1f glasses)", nil), sender.value];
     self.beerSliderLabel.text = sliderText;
+    self.title = titleText;
 }
 
 - (void)buttonPressed:(UIButton *)sender {
