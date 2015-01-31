@@ -53,6 +53,7 @@
     
     // Set our primary view's background color to whiteColor
     self.view.backgroundColor = [UIColor whiteColor];
+    self.calculateButton.backgroundColor = [UIColor darkGrayColor];
     
     // Tells the text field that `self`, this instance of `BLCViewController` should be treated as the text field's delegate
     self.beerPercentTextField.delegate = self;
@@ -83,7 +84,7 @@
 
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-
+    
     
     
     CGFloat viewWidth;
@@ -108,20 +109,20 @@
         }
         
     } else {
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    NSLog(@"Orientation is %d", orientation);
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        NSLog(@"Orientation is %d", orientation);
         NSLog(@"This UI Setup is for IPhone");
-    if (orientation == 1) {
-        viewWidth = 320;
-        itemWidth = viewWidth - padding - padding;
-        itemHeight = 44;
-        NSLog(@"Orientation is portrait");
-    } else  {
-        viewWidth = 480;
-        itemWidth = viewWidth - padding - padding;
-        itemHeight = 22;
-        NSLog(@"Orientation not portrait");
-    }
+        if (orientation == 1) {
+            viewWidth = 320;
+            itemWidth = viewWidth - padding - padding;
+            itemHeight = 44;
+            NSLog(@"Orientation is portrait");
+        } else  {
+            viewWidth = 480;
+            itemWidth = viewWidth - padding - padding;
+            itemHeight = 22;
+            NSLog(@"Orientation not portrait");
+        }
     }
 
     
