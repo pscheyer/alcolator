@@ -43,7 +43,6 @@
     self.calculateButton = button;
     self.hideKeyboardTapGestureRecognizer = tap;
     
-//    Copied and pasted as a chunk from Bloc
 }
 
 - (void)viewDidLoad
