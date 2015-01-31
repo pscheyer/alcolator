@@ -53,6 +53,7 @@
     // Set our primary view's background color to whiteColor
     self.view.backgroundColor = [UIColor whiteColor];
     self.calculateButton.backgroundColor = [UIColor darkGrayColor];
+    self.calculateButton.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:20];
     
     // Tells the text field that `self`, this instance of `BLCViewController` should be treated as the text field's delegate
     self.beerPercentTextField.delegate = self;
