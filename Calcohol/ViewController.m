@@ -19,6 +19,18 @@
 
 @implementation ViewController
 
+-(instancetype) init {
+    self = [super init];
+    
+    if(self) {
+        self.title = NSLocalizedString(@"Wine", @"wine");
+        
+        //Since we don't have icons, lets move the title to the middle of the tab bar.
+        [self.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -18)];
+    }
+    return self;
+}
+
 - (void)loadView {
     // Allocate and initialize the all-encompassing view
     self.view = [[UIView alloc] init];
@@ -86,7 +98,7 @@
     // Gets rid of the maximum number of lines on the label
     self.resultLabel.numberOfLines = 0;
     
-    self.title = NSLocalizedString(@"Wine", @"wine");
+    self.view.backgroundColor = [UIColor colorWithRed:0.741 green:0.925 blue:0.714 alpha:1]; /*#bdecb6*/
 }
 
 - (void) viewWillLayoutSubviews {
@@ -168,10 +180,17 @@
     
     NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
+    
+    //Update text box with slider value
     NSString *sliderText = [NSString stringWithFormat:NSLocalizedString(@"%.1f ", nil), sender.value];
-    NSString *titleText = [NSString stringWithFormat:NSLocalizedString(@"Wine (%.1f glasses)", nil), sender.value];
     self.beerSliderLabel.text = sliderText;
+    
+    //add slider value into title for tab/view
+    NSString *titleText = [NSString stringWithFormat:NSLocalizedString(@"Wine (%.1f glasses)", nil), sender.value];
     self.title = titleText;
+    
+    //update tab bar with icon incl slider value
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) sender.value]];
 }
 
 - (void)buttonPressed:(UIButton *)sender {

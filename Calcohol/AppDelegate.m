@@ -5,14 +5,21 @@
 //  Created by Peter Scheyer on 1/25/15.
 //  Copyright (c) 2015 Peter Scheyer. All rights reserved.
 //
-#import "MainMenuViewController.h"
+
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import "WhiskeyViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <UITabBarControllerDelegate>
+
 
 @end
 
+//@protocol UITabBarControllerDelegate
+//
+//@optional
+//
+//@end
 @implementation AppDelegate
 
 
@@ -20,9 +27,16 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] ;
     // Override point for customization after application launch.
-    MainMenuViewController *mainMenuViewController = [[MainMenuViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mainMenuViewController];
-    self.window.rootViewController = navigationController;
+    ViewController *wineVC = [[ViewController alloc] init];
+    WhiskeyViewController *whiskeyVC = [[WhiskeyViewController alloc] init];
+    UITabBarController *tabBarVC = [[UITabBarController alloc] init];
+    tabBarVC.viewControllers = @[wineVC, whiskeyVC];
+    
+    
+    //Assignment Materials
+    tabBarVC.delegate = self;
+    
+    self.window.rootViewController = tabBarVC;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -49,6 +63,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    NSString *logText = [[NSString alloc] initWithFormat:@"New view controller selected: [ %@ ]", viewController.title];
+    NSLog(@"%@",logText);
+    
 }
 
 #pragma mark - Core Data stack

@@ -14,14 +14,31 @@
 
 @implementation WhiskeyViewController
 
+-(instancetype) init {
+    self = [super init];
+    
+    if(self) {
+        self.title = NSLocalizedString(@"Whiskey", @"whiskey");
+    }
+    return self;
+}
+
+
 - (void)sliderValueDidChange:(UISlider *)sender {
     
     NSLog(@"Slider value changed to %f", sender.value);
     [self.beerPercentTextField resignFirstResponder];
+    
+    //Update text box with slider value
     NSString *sliderText = [NSString stringWithFormat:NSLocalizedString(@"%.1f ", nil), sender.value];
-    NSString *titleText = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%.1f shots)", nil), sender.value];
     self.beerSliderLabel.text = sliderText;
+    
+    //add slider value into title for tab/view
+    NSString *titleText = [NSString stringWithFormat:NSLocalizedString(@"Whiskey (%.1f shots)", nil), sender.value];
     self.title = titleText;
+    
+    //update tab bar with icon incl slider value
+    [self.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int) sender.value]];
 }
 
 - (void)buttonPressed:(UIButton *)sender;
@@ -63,6 +80,6 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    self.title  = NSLocalizedString(@"Whiskey", @"whiskey");
+    self.view.backgroundColor = [UIColor colorWithRed:0.992 green:0.992 blue:0.588 alpha:1];
 }
 @end
